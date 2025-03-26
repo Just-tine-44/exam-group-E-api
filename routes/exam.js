@@ -6,7 +6,28 @@ const groupName = 'E';
 // Middleware to parse JSON body requests
 router.use(express.json());
 
-// Array to store exams
+// Arrays to store data
+const users = [
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john.doe@example.com",
+    role: "student"
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    email: "jane.smith@example.com",
+    role: "student"
+  },
+  {
+    id: 3,
+    name: "Robert Johnson",
+    email: "robert.johnson@example.com",
+    role: "professor"
+  }
+];
+
 const exams = [
   {
     id: 1,
@@ -28,10 +49,17 @@ router.get('/exam-group', (req, res) => {
   res.json({ message: `Group ${groupName} API` });
 });
 
+// GET /exams endpoint - returns the exams
 router.get('/exams', (req, res) => {
   res.json(exams);
 });
 
+// GET /users endpoint - returns the users
+router.get('/users', (req, res) => {
+  res.json(users);
+});
+
+// POST /exams endpoint - adds a new exam
 router.post('/exams', (req, res) => {
   const { title, date, duration, location } = req.body;
   
@@ -47,9 +75,7 @@ router.post('/exams', (req, res) => {
     location: location || "TBD" 
   };
   
-  
   exams.push(newExam);
-  
   
   res.status(201).json(newExam);
 });
